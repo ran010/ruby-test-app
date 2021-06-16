@@ -40,13 +40,13 @@ Para isso é sugerido:
 
 É esperado que o projeto contenha pelo menos 2 páginas/rotas (não necessariamente definidas com esta nomenclatura):
 
-* '/admin'
+* '/admin/purchases'
  * Restrita **apenas** ao administrador.
  * Nesta "dashboard" você irá **listar** as compras realizadas até o momento com nome do comprador, data da compra e o atual estado dela (ver abaixo).
  * Além da página de listagem é esperado que contenha informações mais detalhadas da compra realizada e uma opção para adicionar notas
  * O campo de status será mostrado para o administrador conforme este modelo: "#{status} #{uploaded_by}" onde status é o valor do estado atual da compra e uploaded_by pode ser o nome do próprio admin ou do funcionário. Este valor assumirá o default de nome do criador da compra (i.e. o administrador)
 
-* '/employee'
+* '/purchases'
  * Restrito a funcionários e administradores
  * O funcionário **manager** poderá ver a lista de compras contendo nome do comprador, data da compra e atual estado dela.
  * O funcionário **manager** também poderá ver todos os detalhes da compra
@@ -69,6 +69,8 @@ Para isso é sugerido:
 * Atente para a sua escrita de commits. Não esperamos encontrar um gerenciamento completo de flow de commits, como o uso de `git glow`, mas esperamos commits concisos e que você demonstre conhecer o essencial da ferramenta. Esperamos não ver um *push forçado* numa branch principal (`main` ou `master`) entre os commits.
 
 * Você não será cobrado por sua habilidade no frontend (o que implica sua capacidade de lidar com javascript, jquery ou qualquer biblioteca específica ou mesmo boas técnicas para construir UX ou UI), porém conhecer html e erb template engines será útil, e pode contribuir na comparação do seu processo com outro candidato, pois isso é o básico que usamos no dia a dia dos projetos da empresa.
+
+ * Podemos pedir que você apresente a sua solução, o que inclui a interface gráfica construída.
 
 * Suas entregas contínuas na empresa passarão por processo de revisão de código o que implica que durante a avaliação da sua submissão a esse teste podemos avaliar como você lida com sugestões
 
