@@ -21,6 +21,8 @@ Bundler.require(*Rails.groups)
 
 module RubyQuezTest
   class Application < Rails::Application
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
@@ -32,7 +34,13 @@ module RubyQuezTest
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
+    config.generators do |g|
+      g.test_framework :rspec
+      g.view_specs false
+      g.helper_specs false
+      g.assets false
+      g.helper false
+    end
+
   end
 end
