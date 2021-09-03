@@ -97,10 +97,8 @@ Para isso é necessário:
 
 ## Entrega do teste
 
-1. [Fork](https://docs.github.com/en/github/getting-started-with-github/quickstart/fork-a-repo) esse projeto
+- [Fork](https://docs.github.com/en/github/getting-started-with-github/quickstart/fork-a-repo) esse projeto e submeta uma PR para a branch principal (`main`) desse repositório.
 
-2. Recomendamos que torne seu projeto privado e envie o convite de acesso ao avaliador;
+- Se você prefere manter seu projeto privado, [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) esse projeto, [crie](https://docs.github.com/en/get-started/quickstart/create-a-repo) seu próprio repositório privado e adicione esses usuários como colaboradores para avaliar sua submissão: `heitoledo` e `hugohernani`. Dê preferẽncia a criar uma branch de desenvolvimento e no término crie uma [pull request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) para a branch principal do seu repositório. Fazendo isso você facilitará o processo de avaliação de seu código.
 
-3. Submeta uma [pull request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) para a branch principal (`main`) deste repositório.
-
-4. Nos notifique via e-mail a data do término do projeto. Iremos conferir com o commit utilizado, mas caso haja alguma divergência nos notifique.
+- Independente da estratégia nos notifique via e-mail a data do término do projeto. Iremos conferir com o commit utilizado, mas caso haja alguma divergência nos notifique.
