@@ -1,104 +1,99 @@
-# Desafio Ruby on Rails
+# Ruby on Rails Challenge
 
-## Domínio
+## Description
 
-É comum a quez lidar com projetos em que o domínio do sistema requer várias camadas de visibilidades. Seja isso a nível de policiamento de acesso a páginas por completo ou diferenciação do que é mostrado numa seção da página a depender do nível de acesso do usuário ao sistema.
+In our day-to-day basis we have to build projects considering many visibility layers. This layers relies on either user access policy to some web pages and/or custom content presentation based on user role within the system.
 
-Um usuário com um **papel** de administrador pode ter acesso a todas as páginas desde que contenha link para ela, mas ele mesmo também tem sua dashboard e lista de páginas nas quais tem acesso.
+Take a notice on these roles for this project that should have a sidebar for navigating and a dashboard whose resources visibility will depend on user role:
 
-Por outro lado, há funcionários (Employees) com restrições variadas onde todo employee tem acesso a **mesma** dashboard e lista de recursos, mas a forma como cada um interage varia conforme sua função na empresa. Para esse desafio, considere dois tipos (ou funções) de employees: gerente (manager) e representante (agent).
+1. An admin user can have access to all web pages should he has link for them. But this user should also have its own list of items to access displayed in a sidebar alike or a dashboard of some sort.
 
-## Recursos
+2. In the other hand, there are employee users with different restrictions such that:
+  - all employees can have access to the **same** dashboard page and sidebar;
+  - but they see the content different based on the type of function he has in the company: manager and agent. This will be expanded further.
 
-Estes são os recursos a serem implementados para esse dominio:
+## Resources
 
-* Purchase (atributos básicos e obrigatórios):
+These are the basic resources we are looking for for this project
+
+* Purchase (required attributes*):
   * buyer_name
-  * email
+  * buyer_email
   * created_at
   * updated_at
-  * status (atual estado da compra: requested, processing, cancelled, closed)
-  * updated_by (quem atualizou o record)
+  * status (Suggested values: requested, processing, cancelled, closed)
+  * updated_by (represents who is the last user that updated the record)
   * notes
 
-* Employee (atributos básicos)
+* Employee (required attributes*):
   * name
   * role
 
-
-Fique a vontade para variar na implementação destes recursos, mas atente-se que o teste é construído com esses modelos básicos em mente. Sugiremos manter o básico e caso você precise, extenda.
+> * These fields are required only if your data modeling is created to follow above structure, but you can opt for creating any sort of data modeling since it represents the idea behind the structure above. i.e. you could create a participant model that would have a name attribute and would associate with a purchase model (a standard has-many association between purchases and participants). This modeling would replace the buyer_name field on Purchase with a foreign_key field (such as participant_id).
 
 ## Features
 
-O objetivo deste desafio é testar sua capacidade de aplicar padrões e melhores formas na implementação de um sistema cujas responsabilidades estão divididas conforme os usuários do sistema.
+Keed in mind that what we want with this challenge is to understand if the way you code follows some good patterns such as SOLID, Clean Code and your knowledge of the Rails framework. We are also looking for some basic knowledge on front-end technologies, which includes the standard, HTML, CSS and of course javascript. We usually use ERB for template rendering our html code and coffeescript for javascript compiling.
 
-Para isso é necessário:
+Some features you are asked to implement:
 
-* Implementar **autenticação**. Costumamos usar a gem devise;
-* Implementar **autorização**. De preferência a Pundit;
-* Implementar **visualizações**. Lidar com variações de informação numa seção da página a depender do nível do funcionário. Há padrões comuns (design patterns, como `decorators/presenters` e `adapters` que podem ser úteis ) para lidar com esse tipo de expectativa de forma que isso te ajude a gerenciar seu próprio código quando uma eventual mudança for necessária. Lembre-se que apesar de da simplicidade do domínio, será interessante entender como você aplicaria esse tipo de abordagem se o domínio fosse mais complexo.
+* Implement **authentication**. We usually rely on devise gem for this.
+* Implement **authorization**. We use Pundit in most case.
+* Implement **different view presentations**. It's expected from you to handle situations where an employee (functioning as an agent) may be presented with a different content than another employee (functioning as manager). Remember that the code should be easy for change.
+* Implement background jobs infrastructure and implement a way to handle something through it like changing a purchase from processing to done. We use sidekiq alongside redis for this.
 
-É esperado que o projeto contenha pelo menos 2 páginas/rotas (não necessariamente definidas com esta nomenclatura):
+These are the suggested endpoints for the project
 
 * '/admin/purchases'
- * Restrita **apenas** ao administrador.
- * Nesta página você irá **listar** as compras realizadas até o momento com nome do comprador, data da compra e o atual estado dela (status).
- * Além da página de listagem é esperado que contenha informações mais detalhadas da compra realizada e uma opção para adicionar notas
- * O campo de status será mostrado para o administrador conforme este modelo: "#{status} #{uploaded_by}" onde status é o valor do estado atual da compra e uploaded_by pode ser o nome do próprio admin ou do funcionário. Este valor assumirá o default de nome do criador da compra (i.e. o administrador). Este campo de status deverá ser igualmente mostrado tanto na página de listagem quanto na página de detalhes.
- * A página de listagem deve conter algum mecanismo de pesquisa e ordenação.
+ * Restricted to admin **only**.
+ * It should have standard REST actions;
+ * You should list all existing purchases with buyer's name, buyer's email, timestamp and status. This page should include a multi field search and sorting functionality. (It would be a plus to have some sort of bulking operation). It should also contain action buttons (such as view, edit, destroy)
+ * You should also provide the a detailed view (show action as it's knowm) so that admin will be able to change notes field and change status.
+ * It should have creation and updating forms so that admin can create or update purchase values.
+ * The status field should follow this template "#{status} - Last updated by #{uploaded_by}" on the listing view and on the detailed view. These values will default to the requested status and to the name of the agent who created the purchase.
 
 * '/purchases'
- * Restrito a funcionários e administradores
- * O funcionário **manager** poderá ver a lista de compras contendo nome do comprador, data da compra e atual estado dela.
- * O funcionário **manager** também poderá ver todos os detalhes da compra
- * O funcionário **manager** poderá alterar *apenas* o status da compra
- * O funcionário **manager** visualizará o status com o seguinte formato: "#{status} #{updated_at}", onde `updated_at` seguirá este formato: "dd/mm/yyyy - hh:mm"
- * O funcionário **manager** não poderá excluir a compra
- * O funcionário **agent** poderá apenas visualizar a lista de compras
- * O funcionário **agent** visualizará cada status com o seguinte formato: "#{status}" (ou seja, apenas o valor do status)
- * A página de listagem de ambos od funcionários devem conter algum mecanismo de pesquisa e de ordenação.
-
-#### Outras features que seriam interessantes de ver implementadas:
-
-1. O cliente gostaria que o admin fosse informado (pode ser uma simples seção na área de admin) se quantidade de compras em processamento excede pelo menos 2 vezes a quantidade de compras sendo realizadas. Seria interessante que essa informação fosse atualizada a cada nova transação.
-
-2. Oops. Cliente está pedindo uma mudança. Ele gostaria que o funcionário "manager" também esteja apto para *adicionar* notas as compras. Isso deve ser feito de forma que as notas existentes (na coluna 'notes') não sejam perdidas. (Se possível adicione essa funcionalidade numa branch, mergeie quando achar conveniente e informe o nome da branch.)
-
-3. Represente no código uma estrutura que identifique que uma alteração de status da compra foi realizada e assim algum processo extra (como um email ou notificação para serviço externo) poderia ser executado neste momento a depender da ação realizada na atualização (i.e. status mudou de requested para processing)
-
-4. Exemplique a execução em background de algum processo. Usamos com frequência redis e sidekiq para processar nossas tarefas.
+ * Restricted to employees and administrators
+ * **Manager** employee will be able to see list of purchases having only the name of the buyer's name, timestamp and status. This list should be multi field searchable, orderable and have action buttons (such as view, edit, destroy)
+ * **Manager** employee will be able to see detailed of the selected purchase
+ * **Manager** employee should only be allowed to change the purchase status and change notes field.
+ * **Manager** employee will be able to see status according to this template "#{status} - #{updated_at}", where `updated_at` should be presented as this: "dd/mm/yyyy - hh:mm"
+ * **Manager** employee cannot delete the purchase
+ * **Agent** employee will only be able to see the list of purchases and add notes on anyone of them
+ * **Agent** employee will see the status according to this template: "#{status}" (i.e. only the status value)
 
 
-## Avaliações
+#### Test
 
-* Iremos avaliar a sua senioridade técnica totalmente com base na forma como você codifica, portanto, esteja atento a Clean Code, princípios SOLID, aplicações de técnicas separação de responsabilidade, coesão e desacoplamento.
+Everything should be tested. We expect you to have a good coverage (at least 90%) but most of all we want quality on your tests. We expect at least feature tests and unit tests. We value code design at the test level as well. So keep it clean. You are free to use any resource you want, but please choose at least Rspec. ;)
 
-* Também iremos avaliar sua experiência com base nos detalhes da forma como sua solução ao problema em questão é dado. Por exemplo: você viu a oportunidade de aplicar uma técnica que melhora alguma performance do teste e a faz de forma "legível". Ótimo. O ponto é que vocẽ tem abertura para implementar as soluções ao domínio conforme achar conveniente, mas lembre-se que você fará parte de um time e seu código precisará ser entendível por eles.
+#### Other interesting features to consider:
 
-* Atente para a sua escrita de commits. Não esperamos encontrar um gerenciamento completo de flow de commits, como o uso de `git glow`, mas esperamos commits concisos e que você demonstre conhecer o essencial da ferramenta. Esperamos não ver um *push forçado* numa branch principal (`main` ou `master`) entre os commits.
+1. Let's say client expects admin to have a dashboard page showing the amount of existing purchases. But he also wants admin to have this number to increase in real time on each new transaction if admin is at that page. How would implement that?
 
-* Você não será cobrado por sua habilidade no frontend (o que implica sua capacidade de lidar com javascript, jquery ou qualquer biblioteca específica ou mesmo boas técnicas para construir UX ou UI), porém conhecer html e erb template engine será útil, e pode contribuir na comparação do seu processo com outro candidato.
-
- * Podemos pedir que você apresente a sua solução, o que inclui a interface gráfica construída.
-
-* Suas entregas contínuas na empresa passarão por processo de revisão de código o que implica que durante a avaliação da sua submissão a esse teste podemos avaliar como você lida com sugestões.
-
-* Queremos entender você como pessoa! Somos uma empresa de muita parceria e queremos aumentar o nosso ciclo de amigos. Buscamos manter um ambiente descontraído e com liberdade para trocas de opiniões, porém evitamos quando possível criar situações constrangedoras, o que comumente recaem sobre posições políticas. Se vocẽ se encaixa nesse perfil, também contamos com isso como *positivo* na sua avaliação!
-
-## Testes
-
-* Nós trabalhamos com cobertura de testes em todos os projetos. Portanto é importante que essas funcionalides sejam cobertas por testes de integração e testes unitários.
-* Damos preferência para uso de rspec e capybara em testes de sistema e de features.
-
-## Tips
-
-* Trate bem as responsabilidades de seu código na melhor forma possível. Sugerimos não substimar a simplicidade do teste como meio para evitar a aplicação de estruturas que consigam demonstrar sua habilidade em aplicar técnicas mais avançadas. Por outro lado, cuidado para não extrapolar e assim dificultar o entendimento do seu código, de sua estrutura.
+2. We want to see how you handle changes. So, after you have finished the basic setup of the project. We want you to create a git branch and apply the following change on it: Allow agent employee to also add notes to a purchase as manager admin is allowed to. This means that a purchase will now be able to hold more than one note. You should create this considering that existing note on purchase should not be deleted.
 
 
-## Entrega do teste
+## Evaluations
 
-- [Fork](https://docs.github.com/en/github/getting-started-with-github/quickstart/fork-a-repo) esse projeto e submeta uma PR para a branch principal (`main`) desse repositório.
+* We evaluate your technical seniority totally based in the way you code, therefore, be aware that you should do your best by following good practices
 
-- Se você prefere manter seu projeto privado, [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) esse projeto, [crie](https://docs.github.com/en/get-started/quickstart/create-a-repo) seu próprio repositório privado e adicione esses usuários como colaboradores para avaliar sua submissão: `heitoledo` e `hugohernani`. Dê preferẽncia a criar uma branch de desenvolvimento e no término crie uma [pull request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) para a branch principal do seu repositório. Fazendo isso você facilitará o processo de avaliação de seu código.
+* If you want to be adventurous by implementing something nice, let's say using Turbo frame / streams that would be awesome. Just keep in mind that you should know what you do because we want you to explain in details what you did or planned to do.
 
-- Independente da estratégia nos notifique via e-mail a data do término do projeto. Iremos conferir com o commit utilizado, mas caso haja alguma divergência nos notifique.
+* Besides implementing proper solutions for given problems we would also love to see if you can also improve on performance by handling (1) caching, (2) database loading issues such as n+1 queries, (3) security issues, etc.
+
+* Be aware of the way you commit your code. We are not expecting a perfect commits flow, but it's nice to see that you are following a pattern of some sort. We do not want to see forced push on main/master branch.
+
+* We don't expect a beautiful frontend but it's nice to know you can use a framework such as bootstrap and do some changes based on it.
+
+* We may require you to present your solution. Be prepared.
+
+* Your day-to-day basis in the company would require code review and some pair programming (when needed) this means that you should be able to humbly receive suggestions on your code if needed and counter point something if we are mistaken.
+
+At last, we want to know! We have a really flexible environment and we want to know how you'll fit in our culture. We value opinions
+
+## Test delivery
+
+- [Fork](https://docs.github.com/en/github/getting-started-with-github/quickstart/fork-a-repo) this project and submit a pull request to the master branch of this repository.
+
+- If you want to keep your project private, that's ok. Just send a invitation to this users `hugohernani`, `heitoleto` so that I'll be counted as a collaborator and will be able to see a private pull request to evaluate your test.
