@@ -63,11 +63,11 @@ These are the suggested endpoints for the project
  * **Agent** employee will see the status according to this template: "#{status}" (i.e. only the status value)
 
 
-#### Test
+## Test
 
 Everything should be tested. We expect you to have a good coverage (at least 90%) but most of all we want quality on your tests. We expect at least feature tests and unit tests. We value code design at the test level as well. So keep it clean. You are free to use any resource you want, but please choose at least Rspec. ;)
 
-#### Other interesting features to consider:
+## Other interesting features to consider:
 
 1. Let's say client expects admin to have a dashboard page showing the amount of existing purchases. But he also wants admin to have this number to increase in real time on each new transaction if admin is at that page. How would implement that?
 
