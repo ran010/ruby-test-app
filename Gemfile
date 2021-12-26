@@ -22,6 +22,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'faker', '2.18.0'
+gem 'devise'
 
 group :development, :test do
   gem 'dotenv-rails', '2.7.6'

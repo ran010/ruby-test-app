@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :employees
   namespace :admin do
     resources :purchases
   end
