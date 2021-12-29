@@ -49,9 +49,7 @@
         <td><%= presenter.purchase_status(record) %></td>
         <td><%= record.created_at %></td>
         <td>
-          <% unless current_employee.agent? %>
-            <%= link_to 'Edit', presenter.purchase_edit_link(record) %>
-          <% end %>
+           <%= link_to 'Edit', presenter.purchase_edit_link(record) %>
           <% if current_employee.admin? %>
             | <%= link_to 'Show', presenter.purchase_show_link(record) %>
            | <%= link_to 'Destroy', presenter.purchase_destroy_link(record),method: :delete %>

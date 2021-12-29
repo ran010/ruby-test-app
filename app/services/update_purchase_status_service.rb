@@ -9,7 +9,7 @@ class UpdatePurchaseStatusService < ApplicationService
   end
 
   def call
-    return if @purchase.closed?
+    return if @purchase.present? && @purchase.closed?
     begin
       @purchase.update(status: purchase_new_status)
     rescue  => e
@@ -17,6 +17,7 @@ class UpdatePurchaseStatusService < ApplicationService
     end
   end
 
+  private
   def purchase_new_status
     case @purchase.status
     when 'requested'

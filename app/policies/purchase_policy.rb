@@ -22,7 +22,7 @@ class PurchasePolicy < ApplicationPolicy
   end
 
   def edit?
-    @employee.admin? || @employee.manager?
+    @employee.admin? || @employee.manager? || @employee.agent?
   end
 
   def update?
@@ -30,7 +30,7 @@ class PurchasePolicy < ApplicationPolicy
   end
 
   def destroy?
-    edit?
+    @employee.admin? || @employee.manager?
   end
 
   def permitted_attributes

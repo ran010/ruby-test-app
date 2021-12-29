@@ -64,6 +64,8 @@ group :test do
   gem 'rexml'
 
   gem 'shoulda-matchers', '~> 4.5'
+  gem 'database_cleaner-active_record'
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
