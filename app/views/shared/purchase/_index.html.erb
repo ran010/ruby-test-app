@@ -9,6 +9,7 @@
     <%= f.text_field :search, placeholder: "Search", value: params[:name], class: "border border-blue-500 rounded my-3 p-2" %>
     <%= f.button "Search", class: "btn btn-info text-white p-2" %>
   <% end %>
+  <h2>Total Count: <span id="purchase-count"><%= @records.count %></span></h2>
 </div>
 <!-- Snip the table -->
 

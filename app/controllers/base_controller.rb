@@ -28,6 +28,12 @@ class BaseController < ApplicationController
 
 		if @record.save
 			set_flash(:success, create_success_message)
+			ActionCable.server.broadcast(
+					"notify_channel",
+					{
+							count: Purchase.count
+					}
+			)
 			redirect_to redirect_path
 		else
 			set_flash(:alert, create_failed_message)
