@@ -15,7 +15,9 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 import consumer from "../../webpack/channels/consumer"
+require("bootstrap")
 
+import "../stylesheets/application";
 consumer.subscriptions.create("NotifyChannel", {
   connected() {
     // Called when the subscription is ready for use on the server

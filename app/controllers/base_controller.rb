@@ -25,7 +25,6 @@ class BaseController < ApplicationController
 	def create
 		@record = record_class.new(permitted_params)
 		authorize_action_record
-
 		if @record.save
 			set_flash(:success, create_success_message)
 			ActionCable.server.broadcast(

@@ -15,7 +15,7 @@ RSpec.describe UpdatePurchaseStatusService, type: :service do
       end
     end
     context 'when purchase is absent' do
-      let(:id){ 23 }
+      let(:id){ 1007 }
       it 'returns nil' do
         expect(subject.call).to eq(nil)
       end

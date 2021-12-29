@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2021_12_24_165425) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "name"
-    t.integer "role"
+    t.integer "role", default: 0, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_12_24_165425) do
   end
 
   create_table "purchases", force: :cascade do |t|
-    t.integer "status", default: 0
+    t.integer "status", default: 0, null: false
     t.text "notes"
     t.bigint "employee_id"
     t.datetime "created_at", precision: 6, null: false

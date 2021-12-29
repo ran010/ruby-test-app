@@ -5,11 +5,16 @@ class UpdatePurchaseStatusService < ApplicationService
   end
 
   def get_purchase(id)
-    Purchase.find(id)
+    begin
+     Purchase.find(id)
+    rescue  => e
+      Rails.logger.error e
+      nil
+    end
   end
 
   def call
-    return if @purchase.present? && @purchase.closed?
+    return nil if (@purchase.blank? || @purchase.closed?)
     begin
       @purchase.update(status: purchase_new_status)
     rescue  => e
