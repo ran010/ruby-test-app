@@ -14,7 +14,7 @@ class PurchasePolicy < ApplicationPolicy
   end
 
   def new?
-    @employee.admin?
+    show?
   end
 
   def create?
@@ -30,7 +30,7 @@ class PurchasePolicy < ApplicationPolicy
   end
 
   def destroy?
-    @employee.admin? || @employee.manager?
+    edit?
   end
 
   def permitted_attributes

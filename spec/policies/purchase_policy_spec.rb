@@ -1,27 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe PurchasePolicy, type: :policy do
-  let(:user) { User.new }
+  let(:purchase) { Purchase.new }
 
   subject { described_class }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
+  permissions :new? do
+    it_behaves_like 'purchase permission for show action'
   end
 
   permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it_behaves_like 'purchase permission for show action'
   end
 
   permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it_behaves_like 'purchase permission for show action'
   end
 
   permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it_behaves_like 'purchase permission for edit action'
   end
 
   permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it_behaves_like 'purchase permission for edit action'
   end
 end
