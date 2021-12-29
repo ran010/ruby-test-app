@@ -1,7 +1,7 @@
 <h1>New Purchase</h1>
 
-<%= render 'form', purchase: @purchase %>
+<%= render 'shared/purchase/form', record: @record, url: admin_purchases_path %>
 
-<div class='text-center'>
+<div>
   <%= link_to 'Back', admin_purchases_path, class: 'btn btn-info' %>  
 </div>

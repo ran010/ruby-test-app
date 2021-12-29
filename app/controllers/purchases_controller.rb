@@ -1,13 +1,15 @@
-class PurchasesController < ApplicationController
-  def index
+class PurchasesController < BaseController
+
+  private
+  def permitted_attribute_with_policy
+    policy(record_class).permitted_attributes
   end
 
-  def show
+  def authorize_action_records
+    authorize @records
   end
 
-  def edit
-  end
-
-  def update
+  def authorize_action_record
+    authorize @record
   end
 end

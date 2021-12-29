@@ -1,19 +1,18 @@
 <div class="card text-center">
   <div class="card-body">
     <h1>Purchase</h1>
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Change status</a>
+    <h5 class="card-title">Purchase status - <%= @record.status %></h5>
+    <p class="card-text"><%= @record.notes %></p>
+    <%= link_to 'Change Status', admin_change_purchase_status_path(@record), class: "btn btn-primary#{@record.closed? ? ' disabled' : nil}" %>
   </div>
   <div class="card-footer text-muted">
-    2 days ago
+    <%= @record.created_at %>
   </div>
 </div>
 
 <br />
 
 <div class='text-center'>
-  <%= link_to 'Edit', edit_admin_purchase_path(1), class: 'btn btn-info' %> |
+  <%= link_to 'Edit', edit_admin_purchase_path(@record), class: 'btn btn-info' %> |
   <%= link_to 'Back', admin_purchases_path, class: 'btn btn-info' %>
-
 </div>

@@ -1,0 +1,19 @@
+<%= form_for record, url: url  do |f| %>
+  <div class="form-group mb-3">
+    <%= f.label :notes %>
+    <%= f.text_field :notes, class: 'form-control'%>
+  </div>
+  <div class="form-group mb-3">
+    <%= f.label :status %>
+    <%= f.select :status, Purchase.statuses.collect {|u,v| [u, u]}, {:prompt => 'Select'},  {:class => 'form-select', :disabled =>
+        current_employee.agent?} %>
+  </div>
+  <div class="form-group mb-3">
+    <%= f.label :employee %>
+    <%= f.select :employee_id, Employee.all.collect {|u| [u.email, u.id]}, {:prompt => 'Select'},  {:class => 'form-select', :disabled =>
+        current_employee.agent? || current_employee.manager?} %>
+  </div>
+  <div class="form-group my-4">
+    <%= f.submit "Submit",  class: "btn btn-primary" %>
+  </div>
+<% end %>

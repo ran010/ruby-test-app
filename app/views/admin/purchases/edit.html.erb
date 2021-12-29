@@ -1,10 +1,10 @@
 <h1>Editing Purchase</h1>
 
-<%= render 'form', purchase: @purchase %>
+<%= render 'shared/purchase/form', record: @record, url: admin_purchase_path(@record) %>
 
 <br />
 
 <div class='text-center'>
-  <%= link_to 'Show', @purchase, class: 'btn btn-info' %> |
+  <%= link_to 'Show', @record, class: 'btn btn-info' %> |
   <%= link_to 'Back', admin_purchases_path, class: 'btn btn-info' %>
 </div>

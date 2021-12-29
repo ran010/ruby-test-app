@@ -23,6 +23,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'faker', '2.18.0'
 gem 'devise'
+gem 'pundit'
+gem 'sidekiq'
+gem 'redis-rails'
+gem 'ransack'
 
 group :development, :test do
   gem 'dotenv-rails', '2.7.6'
