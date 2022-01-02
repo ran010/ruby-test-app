@@ -14,7 +14,10 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+//= require jquery
+//= require jquery-ujs
 import consumer from "../../webpack/channels/consumer"
+import {} from 'jquery-ujs'
 require("bootstrap")
 
 import "../stylesheets/application";

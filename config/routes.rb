@@ -7,7 +7,4 @@ Rails.application.routes.draw do
   end
   resources :purchases, except: [:new, :create, :destroy]
 
-  devise_scope :employee do
-    get '/employees/sign_out' => 'devise/sessions#destroy'
-  end
 end
